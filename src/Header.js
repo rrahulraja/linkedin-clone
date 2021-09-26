@@ -8,8 +8,18 @@ import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { ReactComponent as LinkedIn } from "./icons/linkedin.svg";
 import HeaderOption from "./HeaderOption";
+import { useDispatch} from "react-redux";
+import { logout } from "./features/userSlice";
+import { auth } from "./firebase";
 
 function Header() {
+  const dispatch = useDispatch();
+
+  const logoutOfApp = () => {
+    dispatch(logout());
+    auth.signOut();    
+  }
+  
   return (
     <div className="header">
       <div className="header__left">
@@ -26,7 +36,7 @@ function Header() {
         <HeaderOption Icon={BusinessCenterIcon} title="Jobs" />
         <HeaderOption Icon={ChatIcon} title="Messaging" />        
         <HeaderOption Icon={NotificationsIcon} title="Notifications" />
-        <HeaderOption avatar="https://media-exp1.licdn.com/dms/image/C5103AQHpQOJCYmlpUA/profile-displayphoto-shrink_100_100/0/1566804216535?e=1638403200&v=beta&t=SJuhpFQlfM3wfBvwTnZuB0v8x1Wih2430XyJNYw5J78" title="Me"></HeaderOption>
+        <HeaderOption avatar={true} title="Me" onClick={logoutOfApp}></HeaderOption>
       </div>
     </div>
   );
